@@ -118,7 +118,70 @@ Normalize our dataset.
 8. Finally, call the functions confusion_matrix(), and the classification_report() in order to evaluate the performance of our classifier.
 
 ## PROGRAM 
+```
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+data=pd.read_csv("/content/IRIS (1).csv")
+data.head()
 
+name=["sepal_length","sepal_width","petal_length","petal_width"]
+x=data.iloc[:,0:4]
+y=data.select_dtypes(include=[object])
+x.head()
+y.head()
+
+from sklearn import preprocessing
+label_encoder=preprocessing.LabelEncoder()
+data['species']=label_encoder.fit_transform(data['species'])
+data['species'].unique()
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.20)
+from sklearn.preprocessing import StandardScaler
+scaler=StandardScaler()
+scaler.fit(x_train)
+x_train=scaler.transform(x_train)
+x_test=scaler.transform(x_test)
+
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.neural_network import MLPClassifier
+mlp=MLPClassifier(hidden_layer_sizes=(10,10,10),max_iter=1000)
+mlp.fit(x_train,y_train.values.ravel())
+predictions=mlp.predict(x_test)
+print(predictions)
+
+print(confusion_matrix(y_test,predictions))
+print(classification_report(y_test,predictions))
+```
 ## OUTPUT 
 
+## data.head() :
+
+![278989499-f387a7e2-9e47-4d87-91d1-0dbc1a13934e](https://github.com/JaisonRaphael/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/94165957/0fdbaf5d-c519-443d-aaa5-b50a99397a03)
+
+## X.head() :
+
+![278990211-fc0fab58-2ab5-4418-bf9a-55677d806208](https://github.com/JaisonRaphael/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/94165957/0f11c3ea-11f5-4439-870d-a913d4b73dd9)
+
+## Y.head() :
+
+![278990515-45227425-cbda-4a54-98cb-7a1949225a8d](https://github.com/JaisonRaphael/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/94165957/7c63bc32-997a-4637-9cbf-a8bc334fd6c5)
+
+## Array :
+
+![278990992-7521b1d1-80f6-4f49-a8bb-0370aefa4790](https://github.com/JaisonRaphael/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/94165957/ccd6d8ea-9fac-4c83-a21f-9a11129a0e9a)
+
+## Printing the predictions :
+
+![278991205-fec0b495-5914-41b6-9f0a-ea387938dfae](https://github.com/JaisonRaphael/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/94165957/2120d1f8-214e-4b31-a7b6-d3eb64760125)
+
+## Classification report() :
+
+![278991375-29e75d71-7cdf-4c75-9319-88d3e60d5078](https://github.com/JaisonRaphael/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/94165957/c8e269e0-7bba-46b8-95cf-1f75cc82a03b)
+
+![278991438-471c756a-9812-4fef-9eaf-b90a4040c5e2](https://github.com/JaisonRaphael/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/94165957/3722275b-6d11-4618-bb81-f50aa96d4ac5)
+
+
 ## RESULT
+Thus Implementation-of-MLP-with-Backpropagation problem is executed successfully.
